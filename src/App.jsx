@@ -1,55 +1,662 @@
-import { useState } from 'react'
-import heroReference from './assets/angel-artist.jpg'
-import logoReference from './assets/inked-angels-logo.jpeg'
-import './App.css'
+import { useState } from "react";
+import heroReference from "./assets/angel-artist.jpg";
+import logoReference from "./assets/inked-angels-logo.jpeg";
+import "./App.css";
 
 function App() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [isBookingOpen, setIsBookingOpen] = useState(false)
-  const [isIdealsOpen, setIsIdealsOpen] = useState(false)
-  const [portfolioFilter, setPortfolioFilter] = useState('All ideas')
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
+  const [isIdealsOpen, setIsIdealsOpen] = useState(false);
+  const [portfolioFilter, setPortfolioFilter] = useState("All ideas");
 
   const portfolioIdeas = [
-    { title: 'Wild florals', type: 'Florals', artist: 'Soft petals · Fine line', image: 'https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?auto=format&fit=crop&w=900&q=85' },
-    { title: 'Sacred script', type: 'Fine line', artist: 'Words to live by', image: 'https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=900&q=85' },
-    { title: 'Color stories', type: 'Color', artist: 'Playful · Neo-traditional', image: 'https://images.unsplash.com/photo-1542727365-19732a80dcfd?auto=format&fit=crop&w=900&q=85' },
-  ]
-  const portfolioVideos = [
-    'https://www.facebook.com/100007438548001/videos/a.3110048649253056/623759612148445',
-    'https://www.facebook.com/100007438548001/videos/a.3110048649253056/2422980711167246',
-    'https://www.facebook.com/100007438548001/videos/a.3110048649253056/249921720551784',
-    'https://www.facebook.com/100007438548001/videos/a.3110048649253056/907535839961045',
-    'https://www.facebook.com/100007438548001/videos/a.3110048649253056/1007486243171666',
-  ]
-  const portfolioTypes = ['All ideas', ...new Set(portfolioIdeas.map((idea) => idea.type))]
-  const visibleIdeas = portfolioFilter === 'All ideas' ? portfolioIdeas : portfolioIdeas.filter((idea) => idea.type === portfolioFilter)
+    {
+      title: "Wild florals",
+      type: "Florals",
+      artist: "Soft petals · Fine line",
+      image:
+        "https://images.unsplash.com/photo-1568515387631-8b650bbcdb90?auto=format&fit=crop&w=900&q=85",
+    },
+    {
+      title: "Sacred script",
+      type: "Fine line",
+      artist: "Words to live by",
+      image:
+        "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?auto=format&fit=crop&w=900&q=85",
+    },
+    {
+      title: "Color stories",
+      type: "Color",
+      artist: "Playful · Neo-traditional",
+      image:
+        "https://images.unsplash.com/photo-1542727365-19732a80dcfd?auto=format&fit=crop&w=900&q=85",
+    },
+  ];
+  const portfolioTypes = [
+    "All ideas",
+    ...new Set(portfolioIdeas.map((idea) => idea.type)),
+  ];
+  const visibleIdeas =
+    portfolioFilter === "All ideas"
+      ? portfolioIdeas
+      : portfolioIdeas.filter((idea) => idea.type === portfolioFilter);
 
   return (
     <div className="site-shell">
       <header className="site-header">
-        <a className="wordmark header-logo" href="#top" aria-label="Inked Angels home"><img src={logoReference} alt="Inked Angels Tattoo Studio" /></a>
-        <button className="menu-toggle" type="button" onClick={() => setIsMenuOpen(!isMenuOpen)} aria-expanded={isMenuOpen}><span>Menu</span><i>{isMenuOpen ? '×' : '☰'}</i></button>
-        <nav className={isMenuOpen ? 'main-nav is-open' : 'main-nav'}>
-          <div className="ideals-dropdown"><button className="ideals-trigger" type="button" aria-expanded={isIdealsOpen} onClick={() => setIsIdealsOpen(!isIdealsOpen)}>Ideals <span>{isIdealsOpen ? '−' : '+'}</span></button>{isIdealsOpen && <div className="ideals-menu"><a href="#portfolio" onClick={() => { setPortfolioFilter('All ideas'); setIsIdealsOpen(false); setIsMenuOpen(false) }}>All inspiration</a>{portfolioTypes.slice(1).map((type) => <a href="#portfolio" key={type} onClick={() => { setPortfolioFilter(type); setIsIdealsOpen(false); setIsMenuOpen(false) }}>{type}</a>)}</div>}</div><a href="#artists" onClick={() => setIsMenuOpen(false)}>Artists</a><a href="#studio" onClick={() => setIsMenuOpen(false)}>The studio</a><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a>
-          <button className="header-book" type="button" onClick={() => setIsBookingOpen(true)}>Book a session <span>↗</span></button>
+        <a
+          className="wordmark header-logo"
+          href="#top"
+          aria-label="Inked Angels home"
+        >
+          <img src={logoReference} alt="Inked Angels Tattoo Studio" />
+        </a>
+        <button
+          className="menu-toggle"
+          type="button"
+          onClick={() => setIsMenuOpen(!isMenuOpen)}
+          aria-expanded={isMenuOpen}
+        >
+          <span>Menu</span>
+          <i>{isMenuOpen ? "×" : "☰"}</i>
+        </button>
+        <nav className={isMenuOpen ? "main-nav is-open" : "main-nav"}>
+          <div className="ideals-dropdown">
+            <button
+              className="ideals-trigger"
+              type="button"
+              aria-expanded={isIdealsOpen}
+              onClick={() => setIsIdealsOpen(!isIdealsOpen)}
+            >
+              Ideals <span>{isIdealsOpen ? "−" : "+"}</span>
+            </button>
+            {isIdealsOpen && (
+              <div className="ideals-menu">
+                <a
+                  href="#portfolio"
+                  onClick={() => {
+                    setPortfolioFilter("All ideas");
+                    setIsIdealsOpen(false);
+                    setIsMenuOpen(false);
+                  }}
+                >
+                  All inspiration
+                </a>
+                {portfolioTypes.slice(1).map((type) => (
+                  <a
+                    href="#portfolio"
+                    key={type}
+                    onClick={() => {
+                      setPortfolioFilter(type);
+                      setIsIdealsOpen(false);
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    {type}
+                  </a>
+                ))}
+              </div>
+            )}
+          </div>
+          <a href="#artists" onClick={() => setIsMenuOpen(false)}>
+            Artists
+          </a>
+          <a href="#studio" onClick={() => setIsMenuOpen(false)}>
+            The studio
+          </a>
+          <a href="#contact" onClick={() => setIsMenuOpen(false)}>
+            Contact
+          </a>
+          <button
+            className="header-book"
+            type="button"
+            onClick={() => setIsBookingOpen(true)}
+          >
+            Book a session <span>↗</span>
+          </button>
         </nav>
       </header>
       <main id="top">
-        <section className="hero-section"><div className="hero-copy"><p className="eyebrow">Bogalusa, Louisiana · Est. 2018</p><p className="hero-intro">Fine line, bold color, and a little bit of heaven. Tattoos made with intention in the heart of downtown Bogalusa.</p><button className="pink-button" type="button" onClick={() => setIsBookingOpen(true)}>Start your piece <span>↗</span></button></div><figure className="hero-photo"><img src={heroReference} alt="Tattoo artist creating a detailed tattoo" /><figcaption><span>01</span> artist at work <b>✦</b></figcaption></figure><div className="hero-stamp">INKED<br /><span>ANGELS</span></div><div className="scroll-note">Scroll to explore <span>↓</span></div></section>
-        <section className="statement-band" id="studio"><p className="section-kicker">01 / Our kind of sacred</p><h2>A little ink.<br /><span>A lot of soul.</span></h2><p className="statement-text">Inked Angels is a private tattoo studio for the beautifully obsessed. Come for the art, stay for the energy, leave with something that feels like you.</p></section>
-        <section className="portfolio-section" id="portfolio"><div className="section-heading"><div><p className="section-kicker">02 / Bring us your daydreams</p><h2>Tattoo<br /><span>ideas.</span></h2></div><p className="portfolio-intro">A starting point, never a rulebook. Save what speaks to you and let's make it yours.</p></div><div className="portfolio-filters" role="tablist" aria-label="Tattoo idea categories">{portfolioTypes.map((type) => <button className={portfolioFilter === type ? 'is-active' : ''} key={type} type="button" role="tab" aria-selected={portfolioFilter === type} onClick={() => setPortfolioFilter(type)}>{type}</button>)}</div><div className="portfolio-grid">{visibleIdeas.map((idea) => <article className="portfolio-card" key={idea.title}><img src={idea.image} alt={`${idea.title} tattoo inspiration`} /><div className="portfolio-card-info"><span>{idea.type}</span><h3>{idea.title}</h3><p>{idea.artist}</p></div></article>)}</div><div className="portfolio-videos"><div className="video-heading"><p className="section-kicker">Studio videos</p><span>Play the studio videos here</span></div><div className="video-grid">{portfolioVideos.map((video, index) => <article className="video-card" key={video}><iframe src={`https://www.facebook.com/plugins/video.php?href=${encodeURIComponent(video)}&show_text=false`} title={`Portfolio video ${index + 1}`} allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowFullScreen /><div className="video-meta"><span className="video-label">Portfolio video 0{index + 1}</span></div></article>)}</div></div><button className="text-link portfolio-cta" type="button" onClick={() => setIsBookingOpen(true)}>Have an idea? Start a conversation <span>↗</span></button></section>
-        <section className="artists-section" id="artists"><div className="section-heading"><div><p className="section-kicker">03 / The artist behind the needle</p><h2>Meet<br /><span>Raven.</span></h2></div><a className="text-link" href="#contact">Book a session <span>↗</span></a></div><div className="artist-grid"><article className="artist-card"><img src={heroReference} alt="Raven Foster-Peters creating a tattoo" /><div className="artist-info"><span>01</span><h3>Raven<br /><i>Foster-Peters</i></h3><p>Fine line · Blackwork · Botanical</p></div></article><article className="artist-card pink-card"><span className="card-symbol">✦</span><p>Every body<br />has a story.<br /><strong>Let's mark it.</strong></p><a href="#contact">Tell us yours <span>↗</span></a></article></div></section>
-        <section className="artist-profiles" id="profiles"><p className="section-kicker">04 / Your artist</p><div className="profile-grid"><article><div className="profile-number">01</div><h3>Raven <i>Foster-Peters</i></h3><p>Fine line · Blackwork · Botanical</p><button className="text-link" type="button" onClick={() => setIsBookingOpen(true)}>Book with Raven Foster-Peters <span>↗</span></button></article></div></section>
-        <section className="planning-section" id="planning"><div className="section-heading"><div><p className="section-kicker">05 / Before your appointment</p><h2>Good to<br /><span>know.</span></h2></div><p className="portfolio-intro">A little prep makes for a much better tattoo day. Here are the details we get asked about most.</p></div><div className="planning-grid"><div className="price-list"><div><span>Shop minimum</span><strong>$60</strong></div><div><span>Custom work</span><strong>Priced by design</strong></div><div><span>Deposit</span><strong>Required to book</strong></div><div><span>Consultations</span><strong>By appointment</strong></div></div><div className="faq-list"><details open><summary>Do I need an appointment?</summary><p>Appointments are recommended for custom work. Send an inquiry and we will match your idea with the right artist.</p></details><details><summary>Can I bring my own design?</summary><p>Reference images help us understand your direction, and your artist will turn the idea into an original piece.</p></details><details><summary>Do you take walk-ins?</summary><p>Walk-ins depend on the day and artist availability. Call ahead before stopping by the studio.</p></details><details><summary>How do deposits work?</summary><p>A deposit holds your appointment and goes toward your final balance. Full details are shared before booking.</p></details></div></div></section>
-        <section className="aftercare-section" id="aftercare"><div><p className="section-kicker">06 / Keep it beautiful</p><h2>Aftercare<br /><span>101.</span></h2></div><div className="aftercare-copy"><p>Wash gently with unscented soap, pat dry, and apply a thin layer of artist-approved moisturizer. Avoid soaking, direct sun, and picking while your tattoo heals.</p><a className="text-link" href="data:text/plain;charset=utf-8,INKED%20ANGELS%20AFTERCARE%0A%0AWash%20gently%20with%20unscented%20soap.%20Pat%20dry.%0AApply%20a%20thin%20layer%20of%20fragrance-free%20moisturizer.%0AAvoid%20soaking%2C%20sun%2C%20and%20picking.%0AContact%20your%20artist%20with%20questions." download="inked-angels-aftercare.txt">Download aftercare <span>↓</span></a></div></section>
-        <section className="testimonials-section"><p className="section-kicker">07 / Kind words</p><div className="testimonial-grid"><blockquote>“The whole studio feels like a deep breath. Raven understood my idea before I even had the words.”<cite>— Morgan T.</cite></blockquote><blockquote>“Beautiful work, kind people, zero pressure. I left with a piece I will keep forever.”<cite>— Alex R.</cite></blockquote></div></section>
-        <section className="policies-section" id="policies"><div><p className="section-kicker">08 / The fine print</p><h2>Good<br /><span>boundaries.</span></h2></div><div className="policy-copy"><p>Deposits hold your appointment and are applied to your final balance. Rescheduling and cancellation details are shared before your session.</p><p>Clients must meet the shop's age requirements and complete consent forms before tattooing. Your information stays private.</p><div className="social-links"><a href="https://www.instagram.com/inkedangelsla" target="_blank" rel="noreferrer">Instagram <span>↗</span></a><a href="https://www.tiktok.com/@inkedangelsla" target="_blank" rel="noreferrer">TikTok <span>↗</span></a><a href="https://www.facebook.com/raven.foster.403667" target="_blank" rel="noreferrer">Facebook <span>↗</span></a></div></div></section>
-        <section className="contact-section" id="contact"><div><p className="section-kicker">09 / Find us</p><h2>Come say<br /><span>hello.</span></h2></div><div className="contact-details"><p>338 S Columbia Street<br />Bogalusa, LA 70427</p><a href="tel:+19855161415">(985) 516-1415</a><a href="mailto:hello@inkedangels.com">hello@inkedangels.com</a><a className="map-link" href="https://www.google.com/maps/search/?api=1&query=338+S+Columbia+Street+Bogalusa+LA" target="_blank" rel="noreferrer">Open in Google Maps ↗</a></div><div className="contact-hours"><p>24 HR<br /><strong>7 DAYS A WEEK</strong></p><button className="pink-button" type="button" onClick={() => setIsBookingOpen(true)}>Book a session <span>↗</span></button></div></section>
+        <section className="hero-section">
+          <div className="hero-copy">
+            <p className="eyebrow">Bogalusa, Louisiana · Est. 2018</p>
+            <p className="hero-intro">
+              Fine line, bold color, and a little bit of heaven. Tattoos made
+              with intention in the heart of downtown Bogalusa.
+            </p>
+            <button
+              className="pink-button"
+              type="button"
+              onClick={() => setIsBookingOpen(true)}
+            >
+              Start your piece <span>↗</span>
+            </button>
+          </div>
+          <figure className="hero-photo">
+            <img
+              src={heroReference}
+              alt="Tattoo artist creating a detailed tattoo"
+            />
+            <figcaption>
+              <span>01</span> artist at work <b>✦</b>
+            </figcaption>
+          </figure>
+          <div className="hero-stamp">
+            INKED
+            <br />
+            <span>ANGELS</span>
+          </div>
+          <div className="scroll-note">
+            Scroll to explore <span>↓</span>
+          </div>
+        </section>
+        <section className="statement-band" id="studio">
+          <p className="section-kicker">01 / Our kind of sacred</p>
+          <h2>
+            A little ink.
+            <br />
+            <span>A lot of soul.</span>
+          </h2>
+          <p className="statement-text">
+            Inked Angels is a private tattoo studio for the beautifully
+            obsessed. Come for the art, stay for the energy, leave with
+            something that feels like you.
+          </p>
+        </section>
+        <section className="portfolio-section" id="portfolio">
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">02 / Bring us your daydreams</p>
+              <h2>
+                Tattoo
+                <br />
+                <span>ideas.</span>
+              </h2>
+            </div>
+            <p className="portfolio-intro">
+              A starting point, never a rulebook. Save what speaks to you and
+              let's make it yours.
+            </p>
+          </div>
+          <div
+            className="portfolio-filters"
+            role="tablist"
+            aria-label="Tattoo idea categories"
+          >
+            {portfolioTypes.map((type) => (
+              <button
+                className={portfolioFilter === type ? "is-active" : ""}
+                key={type}
+                type="button"
+                role="tab"
+                aria-selected={portfolioFilter === type}
+                onClick={() => setPortfolioFilter(type)}
+              >
+                {type}
+              </button>
+            ))}
+          </div>
+          <div className="portfolio-grid">
+            {visibleIdeas.map((idea) => (
+              <article className="portfolio-card" key={idea.title}>
+                <img
+                  src={idea.image}
+                  alt={`${idea.title} tattoo inspiration`}
+                />
+                <div className="portfolio-card-info">
+                  <span>{idea.type}</span>
+                  <h3>{idea.title}</h3>
+                  <p>{idea.artist}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <button
+            className="text-link portfolio-cta"
+            type="button"
+            onClick={() => setIsBookingOpen(true)}
+          >
+            Have an idea? Start a conversation <span>↗</span>
+          </button>
+        </section>
+        <section className="artists-section" id="artists">
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">
+                03 / The artist behind the needle
+              </p>
+              <h2>
+                Meet
+                <br />
+                <span>Raven.</span>
+              </h2>
+            </div>
+            <a className="text-link" href="#contact">
+              Book a session <span>↗</span>
+            </a>
+          </div>
+          <div className="artist-grid">
+            <article className="artist-card">
+              <img
+                src={heroReference}
+                alt="Raven Foster-Peters creating a tattoo"
+              />
+              <div className="artist-info">
+                <span>01</span>
+                <h3>
+                  Raven
+                  <br />
+                  <i>Foster-Peters</i>
+                </h3>
+                <p>Fine line · Blackwork · Botanical</p>
+              </div>
+            </article>
+            <article className="artist-card pink-card">
+              <span className="card-symbol">✦</span>
+              <p>
+                Every body
+                <br />
+                has a story.
+                <br />
+                <strong>Let's mark it.</strong>
+              </p>
+              <a href="#contact">
+                Tell us yours <span>↗</span>
+              </a>
+            </article>
+          </div>
+        </section>
+        <section className="artist-profiles" id="profiles">
+          <p className="section-kicker">04 / Your artist</p>
+          <div className="profile-grid">
+            <article>
+              <div className="profile-number">01</div>
+              <h3>
+                Raven <i>Foster-Peters</i>
+              </h3>
+              <p>Fine line · Blackwork · Botanical</p>
+              <button
+                className="text-link"
+                type="button"
+                onClick={() => setIsBookingOpen(true)}
+              >
+                Book with Raven Foster-Peters <span>↗</span>
+              </button>
+            </article>
+          </div>
+        </section>
+        <section className="planning-section" id="planning">
+          <div className="section-heading">
+            <div>
+              <p className="section-kicker">05 / Before your appointment</p>
+              <h2>
+                Good to
+                <br />
+                <span>know.</span>
+              </h2>
+            </div>
+            <p className="portfolio-intro">
+              A little prep makes for a much better tattoo day. Here are the
+              details we get asked about most.
+            </p>
+          </div>
+          <div className="planning-grid">
+            <div className="price-list">
+              <div>
+                <span>Shop minimum</span>
+                <strong>$60</strong>
+              </div>
+              <div>
+                <span>Custom work</span>
+                <strong>Priced by design</strong>
+              </div>
+              <div>
+                <span>Deposit</span>
+                <strong>Required to book</strong>
+              </div>
+              <div>
+                <span>Consultations</span>
+                <strong>By appointment</strong>
+              </div>
+            </div>
+            <div className="faq-list">
+              <details open>
+                <summary>Do I need an appointment?</summary>
+                <p>
+                  Appointments are recommended for custom work. Send an inquiry
+                  and we will match your idea with the right artist.
+                </p>
+              </details>
+              <details>
+                <summary>Can I bring my own design?</summary>
+                <p>
+                  Reference images help us understand your direction, and your
+                  artist will turn the idea into an original piece.
+                </p>
+              </details>
+              <details>
+                <summary>Do you take walk-ins?</summary>
+                <p>
+                  Walk-ins depend on the day and artist availability. Call ahead
+                  before stopping by the studio.
+                </p>
+              </details>
+              <details>
+                <summary>How do deposits work?</summary>
+                <p>
+                  A deposit holds your appointment and goes toward your final
+                  balance. Full details are shared before booking.
+                </p>
+              </details>
+            </div>
+          </div>
+        </section>
+        <section className="aftercare-section" id="aftercare">
+          <div>
+            <p className="section-kicker">06 / Keep it beautiful</p>
+            <h2>
+              Aftercare
+              <br />
+              <span>101.</span>
+            </h2>
+          </div>
+          <div className="aftercare-copy">
+            <p>
+              Wash gently with unscented soap, pat dry, and apply a thin layer
+              of artist-approved moisturizer. Avoid soaking, direct sun, and
+              picking while your tattoo heals.
+            </p>
+            <a
+              className="text-link"
+              href="data:text/plain;charset=utf-8,INKED%20ANGELS%20AFTERCARE%0A%0AWash%20gently%20with%20unscented%20soap.%20Pat%20dry.%0AApply%20a%20thin%20layer%20of%20fragrance-free%20moisturizer.%0AAvoid%20soaking%2C%20sun%2C%20and%20picking.%0AContact%20your%20artist%20with%20questions."
+              download="inked-angels-aftercare.txt"
+            >
+              Download aftercare <span>↓</span>
+            </a>
+          </div>
+        </section>
+        <section className="testimonials-section">
+          <p className="section-kicker">07 / Kind words</p>
+          <div className="testimonial-grid">
+            <blockquote>
+              “The whole studio feels like a deep breath. Raven understood my
+              idea before I even had the words.”<cite>— Morgan T.</cite>
+            </blockquote>
+            <blockquote>
+              “Beautiful work, kind people, zero pressure. I left with a piece I
+              will keep forever.”<cite>— Alex R.</cite>
+            </blockquote>
+          </div>
+        </section>
+        <section className="policies-section" id="policies">
+          <div>
+            <p className="section-kicker">08 / The fine print</p>
+            <h2>
+              Good
+              <br />
+              <span>boundaries.</span>
+            </h2>
+          </div>
+          <div className="policy-copy">
+            <p>
+              Deposits hold your appointment and are applied to your final
+              balance. Rescheduling and cancellation details are shared before
+              your session.
+            </p>
+            <p>
+              Clients must meet the shop's age requirements and complete consent
+              forms before tattooing. Your information stays private.
+            </p>
+            <div className="social-links">
+              <a
+                href="https://www.instagram.com/inkedangelsla"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Instagram <span>↗</span>
+              </a>
+              <a
+                href="https://www.tiktok.com/@inkedangelsla"
+                target="_blank"
+                rel="noreferrer"
+              >
+                TikTok <span>↗</span>
+              </a>
+              <a
+                href="https://www.facebook.com/raven.foster.403667"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Facebook <span>↗</span>
+              </a>
+            </div>
+          </div>
+        </section>
+        <section className="contact-section" id="contact">
+          <div>
+            <p className="section-kicker">09 / Find us</p>
+            <h2>
+              Come say
+              <br />
+              <span>hello.</span>
+            </h2>
+          </div>
+          <div className="contact-details">
+            <p>
+              338 S Columbia Street
+              <br />
+              Bogalusa, LA 70427
+            </p>
+            <a href="tel:+19855161415">(985) 516-1415</a>
+            <a href="mailto:hello@inkedangels.com">hello@inkedangels.com</a>
+            <a
+              className="map-link"
+              href="https://www.google.com/maps/search/?api=1&query=338+S+Columbia+Street+Bogalusa+LA"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Open in Google Maps ↗
+            </a>
+          </div>
+          <div className="contact-hours">
+            <p>
+              24 HR
+              <br />
+              <strong>7 DAYS A WEEK</strong>
+            </p>
+            <button
+              className="pink-button"
+              type="button"
+              onClick={() => setIsBookingOpen(true)}
+            >
+              Book a session <span>↗</span>
+            </button>
+          </div>
+        </section>
       </main>
-      <footer><a className="wordmark" href="#top"><span>INKED</span><b>✦</b><span>ANGELS</span></a><span>© 2024 Inked Angels Tattoo Studio</span><span>Follow along <b>@inkedangelsla</b></span></footer>
-      {isBookingOpen && <div className="modal-backdrop" onClick={() => setIsBookingOpen(false)}><div className="booking-modal" onClick={(event) => event.stopPropagation()}><button className="close-modal" type="button" aria-label="Close booking form" onClick={() => setIsBookingOpen(false)}>×</button><p className="section-kicker">Let's make it real</p><h2>Start your<br /><span>story.</span></h2><p>Tell us a little about the piece you're dreaming up and we'll be in touch.</p><form onSubmit={(event) => { event.preventDefault(); setIsBookingOpen(false) }}><input aria-label="Your name" placeholder="Your name" required /><input aria-label="Your email" type="email" placeholder="Email address" required /><select aria-label="Choose an artist" defaultValue=""><option value="" disabled>Choose an artist</option><option>Raven Foster-Peters</option></select><select aria-label="Preferred appointment" defaultValue=""><option value="" disabled>Preferred appointment</option><option>Weekday</option><option>Saturday</option><option>Flexible</option></select><input aria-label="Budget" placeholder="Budget range (optional)" /><textarea aria-label="Tattoo idea" placeholder="Tell us about your idea" rows="3" required></textarea><p className="deposit-note">A deposit is required to hold your appointment. We will confirm availability and details by email.</p><button className="pink-button" type="submit">Send inquiry <span>↗</span></button></form></div></div>}
+      <footer>
+        <a className="wordmark" href="#top">
+          <span>INKED</span>
+          <b>✦</b>
+          <span>ANGELS</span>
+        </a>
+        <span>© 2024 Inked Angels Tattoo Studio</span>
+        <span>
+          Follow along <b>@inkedangelsla</b>
+        </span>
+      </footer>
+      {isBookingOpen && (
+        <div className="modal-backdrop" onClick={() => setIsBookingOpen(false)}>
+          <div
+            className="booking-modal"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              className="close-modal"
+              type="button"
+              aria-label="Close booking form"
+              onClick={() => setIsBookingOpen(false)}
+            >
+              ×
+            </button>
+            <p className="section-kicker">Let's make it real</p>
+            <h2>
+              Start your
+              <br />
+              <span>story.</span>
+            </h2>
+            <p>
+              Tell us a little about the piece you're dreaming up and we'll be
+              in touch.
+            </p>
+            <form
+              action="https://formsubmit.co/ravenfoster22@yahoo.com"
+              method="POST"
+              encType="multipart/form-data"
+            >
+              <input
+                type="hidden"
+                name="_subject"
+                value="New Inked Angels booking inquiry"
+              />
+              <input type="hidden" name="_template" value="table" />
+              <input type="hidden" name="_captcha" value="false" />
+              <input
+                name="client_name"
+                aria-label="Your name"
+                placeholder="Your name"
+                required
+              />
+              <input
+                name="client_email"
+                aria-label="Your email"
+                type="email"
+                placeholder="Email address"
+                required
+              />
+              <input
+                name="phone"
+                aria-label="Phone number"
+                type="tel"
+                placeholder="Phone number"
+                required
+              />
+              <select
+                name="artist"
+                aria-label="Choose an artist"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Choose an artist
+                </option>
+                <option>Raven Foster-Peters</option>
+              </select>
+              <input
+                name="placement"
+                aria-label="Tattoo placement"
+                placeholder="Tattoo placement"
+                required
+              />
+              <input
+                name="approximate_size"
+                aria-label="Approximate size"
+                placeholder="Approximate size (inches)"
+                required
+              />
+              <select
+                name="color_style"
+                aria-label="Color or black and grey"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  Color or black-and-grey?
+                </option>
+                <option>Color</option>
+                <option>Black-and-grey</option>
+                <option>Not sure yet</option>
+              </select>
+              <select
+                name="tattoo_type"
+                aria-label="Tattoo type"
+                defaultValue=""
+              >
+                <option value="" disabled>
+                  New tattoo, cover-up, or touch-up?
+                </option>
+                <option>New tattoo</option>
+                <option>Cover-up</option>
+                <option>Touch-up</option>
+              </select>
+              <label className="calendar-field">
+                Choose a day
+                <input
+                  name="appointment_date"
+                  aria-label="Choose an appointment day"
+                  type="date"
+                  required
+                />
+              </label>
+              <select
+                name="appointment_time"
+                aria-label="Choose an appointment time"
+                defaultValue=""
+                required
+              >
+                <option value="" disabled>Choose a time</option>
+                <option>9:00 AM</option>
+                <option>10:30 AM</option>
+                <option>12:00 PM</option>
+                <option>1:30 PM</option>
+                <option>3:00 PM</option>
+                <option>4:30 PM</option>
+                <option>6:00 PM</option>
+              </select>
+              <input
+                name="preferred_dates"
+                aria-label="Additional preferred dates"
+                placeholder="Other dates (optional)"
+              />
+              <input
+                name="budget"
+                aria-label="Budget"
+                placeholder="Budget range (optional)"
+              />
+              <textarea
+                name="tattoo_idea"
+                aria-label="Tattoo idea"
+                placeholder="Tell us about your idea"
+                rows="3"
+                required
+              ></textarea>
+              <label className="upload-field">
+                Reference image{" "}
+                <input
+                  name="reference_image"
+                  type="file"
+                  accept="image/png,image/jpeg,image/webp"
+                />
+              </label>
+              <label className="consent-check">
+                <input name="age_confirmation" type="checkbox" required /> I
+                confirm I meet the shop's age requirement.
+              </label>
+              <label className="consent-check">
+                <input name="policy_agreement" type="checkbox" required /> I
+                agree to the deposit and cancellation policies.
+              </label>
+              <p className="deposit-note">
+                Your inquiry will be emailed to Raven Foster-Peters. A deposit
+                is required to hold your appointment.
+              </p>
+              <button className="pink-button" type="submit">
+                Send inquiry <span>↗</span>
+              </button>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
