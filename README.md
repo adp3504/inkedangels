@@ -1,2 +1,2 @@
 # inkedangels
-tatto shop
+tattoo shop
